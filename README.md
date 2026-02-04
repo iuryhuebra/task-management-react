@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# Task Management (Em desenvolvimento) 🚧
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Task Management** é uma aplicação simples de gerenciamento de tarefas construída com **React + TypeScript + Vite** e estilizada com **styled-components**. O projeto está em desenvolvimento e serve como um playground para experimentar interfaces, edição inline e interações de tarefas.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔎 Sobre o que já está implementado
 
-## React Compiler
+- Layout principal em um cartão (`Card`) com cabeçalho (`Header`) e lista de tarefas (`TaskList`).
+- Criar nova tarefa com o botão de adicionar (`AddTask`).
+- Editar texto de tarefas e título através de edição inline (`EditableText`).
+- Checkbox customizado com animação e marcação visual (`Checkbox`).
+- Excluir tarefas com um botão de lixeira.
+- Foco em acessibilidade visual (estilos `:focus-visible`) e micro-interações.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧰 Tech stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19 + TypeScript
+- Vite (dev server/build)
+- styled-components
+- lucide-react (ícones)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Como rodar localmente
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# instalar dependências
+pnpm install
+
+# rodar em modo de desenvolvimento
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Abra http://localhost:5173 (ou a porta que o Vite informar).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🔜 Próximos passos (planejados)
+
+- Persistência (localStorage / backend)
+- Reordenação de tarefas (drag & drop)
+- Marcação de prazos, filtros e busca
+- Testes unitários e E2E
+- Responsividade e melhorias de UX
+
+---
+
+## 🤝 Contribuições
+
+Contribuições são bem-vindas! Abra issues ou pull requests com sugestões.
+
+---
