@@ -59,6 +59,7 @@ function Header() {
         onClick={() => setEditMode(true)}
         onBlur={(newText) => {
           setEditMode(false);
+          setTitle(newText);
           localStorage.setItem("title", newText);
         }}
         mode="header"
