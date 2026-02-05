@@ -60,7 +60,7 @@ const DeleteButton = styled.button`
 
   &:hover {
     color: #f87171;
-
+  }
 `;
 
 type CheckboxProps = {
@@ -68,16 +68,29 @@ type CheckboxProps = {
   label?: string;
   editing?: boolean;
   onDelete: () => void;
+  onUpdate?: (newText: string, status: boolean) => void;
 };
 
-export function Checkbox({ checked, label, editing, onDelete }: CheckboxProps) {
+export function Checkbox({
+  checked,
+  label,
+  editing,
+  onDelete,
+  onUpdate,
+}: CheckboxProps) {
   const [check, setChecked] = useState(checked);
   const [editMode, setEditMode] = useState(editing || false);
 
   return (
     <CheckboxContainer>
       <Label>
-        <HiddenCheckbox checked={check} onChange={() => setChecked(!check)} />
+        <HiddenCheckbox
+          checked={check}
+          onChange={() => {
+            setChecked(!check);
+            onUpdate && onUpdate(label || "", !check);
+          }}
+        />
         <CustomCheckbox checked={check}>
           <Check size={14} strokeWidth={3} />
         </CustomCheckbox>
@@ -89,7 +102,10 @@ export function Checkbox({ checked, label, editing, onDelete }: CheckboxProps) {
             mode="task"
             editMode={editMode}
             onClick={() => setEditMode(true)}
-            onBlur={() => setEditMode(false)}
+            onBlur={(newText) => {
+              setEditMode(false);
+              onUpdate && onUpdate(newText, check);
+            }}
           />
         </Text>
       )}

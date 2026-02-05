@@ -28,17 +28,22 @@ interface TaskProps {
   id: number;
   text?: string;
   editing?: boolean;
+  status: boolean;
   onDelete: (id: number) => void;
+  onUpdate: (id: number, newText: string, status: boolean) => void;
 }
 
-function Task({ id, text, editing, onDelete }: TaskProps) {
+function Task({ id, text, editing, status, onDelete, onUpdate }: TaskProps) {
   return (
     <CheckboxStyled>
       <Checkbox
-        checked={false}
+        checked={status}
         label={text}
         editing={editing}
         onDelete={() => onDelete(id)}
+        onUpdate={(newText, newStatus) =>
+          onUpdate && onUpdate(id, newText, newStatus)
+        }
       />
     </CheckboxStyled>
   );

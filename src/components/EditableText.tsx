@@ -14,10 +14,15 @@ const Input = styled.div<{ mode?: "header" | "task" }>`
     border-bottom-color: #e5e7eb;
   }
 `;
-interface EditableTextProps extends React.HTMLAttributes<HTMLInputElement> {
+interface EditableTextProps extends Omit<
+  React.HTMLAttributes<HTMLInputElement>,
+  "onBlur" | "onClick"
+> {
   text: string;
   editMode: boolean;
   mode?: "header" | "task";
+  onBlur?: (newText: string) => void;
+  onClick?: () => void;
 }
 
 function EditableText({
@@ -51,7 +56,7 @@ function EditableText({
       mode={mode}
       contentEditable={editMode}
       suppressContentEditableWarning
-      onBlur={onBlur}
+      onBlur={() => onBlur?.(ref.current?.textContent || "")}
       onClick={onClick}
       spellCheck={false}
     >

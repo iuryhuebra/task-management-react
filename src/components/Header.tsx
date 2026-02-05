@@ -47,14 +47,20 @@ const EditButton = styled.button`
 
 function Header() {
   const [editMode, setEditMode] = useState(false);
+  const [title, setTitle] = useState<string>(
+    localStorage.getItem("title") || "Task Management",
+  );
 
   return (
     <StyledHeader>
       <EditableText
-        text="Task Management"
+        text={title}
         editMode={editMode}
         onClick={() => setEditMode(true)}
-        onBlur={() => setEditMode(false)}
+        onBlur={(newText) => {
+          setEditMode(false);
+          localStorage.setItem("title", newText);
+        }}
         mode="header"
       />
 
