@@ -3,23 +3,26 @@ import { Checkbox } from "./Checkbox";
 
 const CheckboxStyled = styled.div`
   padding: 12px 6px;
-  border-radius: 8px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(255, 255, 255, 0.74);
 
   transition:
-    background 0.15s ease,
-    color 0.15s ease,
-    transform 0.1s ease;
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 
   &:hover {
-    background: #f3f4f6;
-    color: #111827;
-    transform: scale(1.01);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(96, 165, 250, 0.22);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.07);
   }
   &:active {
     transform: scale(0.98);
   }
   &:focus-visible {
-    outline: 2px solid #3b82f6;
+    outline: 2px solid #2563eb;
     outline-offset: 2px;
   }
 `;
@@ -41,9 +44,7 @@ function Task({ id, text, editing, status, onDelete, onUpdate }: TaskProps) {
         label={text}
         editing={editing}
         onDelete={() => onDelete(id)}
-        onUpdate={(newText, newStatus) =>
-          onUpdate && onUpdate(id, newText, newStatus)
-        }
+        onUpdate={(newText, newStatus) => onUpdate(id, newText, newStatus)}
       />
     </CheckboxStyled>
   );

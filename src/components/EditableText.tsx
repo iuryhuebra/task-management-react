@@ -9,6 +9,9 @@ const Input = styled.div<{ mode?: "header" | "task" }>`
 
   min-width: 90%;
   padding-bottom: 8px;
+  line-height: 1.25;
+  color: #0f172a;
+  border-radius: 10px;
 
   &:focus {
     border-bottom-color: #e5e7eb;
@@ -56,7 +59,7 @@ function EditableText({
       mode={mode}
       contentEditable={editMode}
       suppressContentEditableWarning
-      onBlur={() => onBlur?.(ref.current?.textContent || "")}
+      onBlur={() => onBlur?.(ref.current?.textContent?.trim() || "")}
       onClick={onClick}
       spellCheck={false}
     >

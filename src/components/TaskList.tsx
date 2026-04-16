@@ -6,11 +6,12 @@ import AddTask from "./AddTask";
 const StyledTaskList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 
   overflow-y: auto;
-  padding-right: 6px;
-  height: calc(70vh - 112px);
+  padding-right: 4px;
+  flex: 1;
+  min-height: 0;
 
   scrollbar-width: thin;
   scrollbar-color: rgba(107, 114, 128, 0.4) transparent;
@@ -34,6 +35,30 @@ const StyledTaskList = styled.div`
   }
 `;
 
+const EmptyState = styled.div`
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+  border: 1px dashed rgba(148, 163, 184, 0.35);
+  border-radius: 22px;
+  background: rgba(248, 250, 252, 0.72);
+  color: #475569;
+  text-align: center;
+  padding: 24px;
+`;
+
+const EmptyTitle = styled.h2`
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+`;
+
+const EmptyText = styled.p`
+  max-width: 360px;
+  line-height: 1.55;
+`;
+
 type TaskType = {
   id: number;
   text: string;
@@ -47,8 +72,18 @@ function TaskList() {
     return stored
       ? JSON.parse(stored)
       : [
-          { id: 1, text: "Primeira tarefa", editing: false, status: false },
-          { id: 2, text: "Segunda tarefa", editing: false, status: false },
+          {
+            id: 1,
+            text: "Explore a interface e personalize este fluxo",
+            editing: false,
+            status: false,
+          },
+          {
+            id: 2,
+            text: "Adicione novas tarefas para testar a experiencia",
+            editing: false,
+            status: false,
+          },
         ];
   });
 
@@ -80,18 +115,52 @@ function TaskList() {
     );
   }
 
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      const target = e.target as HTMLElement;
+
+      const isTyping =
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable;
+
+      if (isTyping) return;
+
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleAddTask();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <StyledTaskList>
-      {tasks.map((task) => (
-        <Task
-          id={task.id}
-          status={task.status}
-          text={task.text}
-          editing={task.editing}
-          onDelete={handleDeleteTask}
-          onUpdate={handleUpdateTask}
-        />
-      ))}
+      {tasks.length === 0 ? (
+        <EmptyState>
+          <div>
+            <EmptyTitle>Sua lista esta vazia</EmptyTitle>
+            <EmptyText>
+              Clique no botao de adicionar ou pressione Enter fora de um campo
+              de texto para criar sua primeira tarefa.
+            </EmptyText>
+          </div>
+        </EmptyState>
+      ) : (
+        tasks.map((task) => (
+          <Task
+            key={task.id}
+            id={task.id}
+            status={task.status}
+            text={task.text}
+            editing={task.editing}
+            onDelete={handleDeleteTask}
+            onUpdate={handleUpdateTask}
+          />
+        ))
+      )}
 
       <AddTask onClick={handleAddTask} />
     </StyledTaskList>

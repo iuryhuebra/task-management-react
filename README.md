@@ -1,55 +1,50 @@
-# Task Management (Em desenvolvimento) 🚧
+# Task Management
 
-**Task Management** é uma aplicação simples de gerenciamento de tarefas construída com **React + TypeScript + Vite** e estilizada com **styled-components**. O projeto está em desenvolvimento e serve como um playground para experimentar interfaces, edição inline e interações de tarefas.
-
----
-
-## 🔎 Sobre o que já está implementado
-
-- Layout principal em um cartão (`Card`) com cabeçalho (`Header`) e lista de tarefas (`TaskList`).
-- Criar nova tarefa com o botão de adicionar (`AddTask`).
-- Editar texto de tarefas e título através de edição inline (`EditableText`).
-- Checkbox customizado com animação e marcação visual (`Checkbox`).
-- Excluir tarefas com um botão de lixeira.
-- Foco em acessibilidade visual (estilos `:focus-visible`) e micro-interações.
+**Task Management** é uma aplicação de gerenciamento de tarefas construída com **React + TypeScript + Vite** e estilizada com **styled-components**. O projeto foi lapidado para apresentação em portfólio, com foco em interface, edição inline e experiência de uso.
 
 ---
 
-## 🧰 Tech stack
+## O que está implementado
+
+- Layout principal em um card com cabeçalho e lista de tarefas.
+- Criação de novas tarefas com um botão de adicionar.
+- Edição inline do título e do texto das tarefas.
+- Checkbox customizado com feedback visual.
+- Exclusão de tarefas.
+- Persistência automática via `localStorage`.
+- Estado vazio com instruções claras.
+
+---
+
+## Stack
 
 - React 19 + TypeScript
-- Vite (dev server/build)
+- Vite
 - styled-components
-- lucide-react (ícones)
+- lucide-react
 
 ---
 
-## 🚀 Como rodar localmente
+## Como rodar localmente
 
 ```bash
-# instalar dependências
 pnpm install
-
-# rodar em modo de desenvolvimento
 pnpm dev
 ```
 
-Abra http://localhost:5173 (ou a porta que o Vite informar).
+Abra o endereço exibido pelo Vite, normalmente `http://localhost:5173`.
 
 ---
 
-## 🔜 Próximos passos (planejados)
+## Próximos passos
 
-- Persistência (localStorage / backend)
-- Reordenação de tarefas (drag & drop)
-- Marcação de prazos, filtros e busca
-- Testes unitários e E2E
-- Responsividade e melhorias de UX
-
----
-
-## 🤝 Contribuições
-
-Contribuições são bem-vindas! Abra issues ou pull requests com sugestões.
+- Melhorar responsividade para telas menores.
+- Adicionar filtros, busca e prazos.
+- Incluir testes unitários e E2E.
+- Publicar com screenshots e link de demonstração.
 
 ---
+
+## Observação
+
+As tarefas ficam salvas no navegador usando `localStorage`. Se você limpar os dados do site, a lista será redefinida.

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Check, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import EditableText from "./EditableText";
 
 const CheckboxContainer = styled.div`
@@ -23,7 +23,7 @@ const CustomCheckbox = styled.div<{ checked: boolean }>`
   width: 18px;
   height: 18px;
   border-radius: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 
   display: flex;
   align-items: center;
@@ -48,18 +48,36 @@ const Text = styled.span<{ checked: boolean }>`
   text-decoration: ${({ checked }) => (checked ? "line-through" : "none")};
   transition: 0.2s;
   width: 100%;
+  line-height: 1.5;
 `;
 
 const DeleteButton = styled.button`
   margin-left: auto;
   margin-right: 4px;
-  background: none;
-  border: none;
-  color: #d6d9dd;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 12px;
+  color: #94a3b8;
   cursor: pointer;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    transform 0.15s ease;
 
   &:hover {
+    background: rgba(254, 242, 242, 0.92);
     color: #f87171;
+  }
+  &:active {
+    transform: scale(0.96);
+  }
+  &:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
   }
 `;
 
@@ -81,6 +99,14 @@ export function Checkbox({
   const [check, setChecked] = useState(checked);
   const [editMode, setEditMode] = useState(editing || false);
 
+  useEffect(() => {
+    setChecked(checked);
+  }, [checked]);
+
+  useEffect(() => {
+    setEditMode(editing || false);
+  }, [editing]);
+
   return (
     <CheckboxContainer>
       <Label>
@@ -88,7 +114,9 @@ export function Checkbox({
           checked={check}
           onChange={() => {
             setChecked(!check);
-            onUpdate && onUpdate(label || "", !check);
+            if (onUpdate) {
+              onUpdate(label || "", !check);
+            }
           }}
         />
         <CustomCheckbox checked={check}>
@@ -104,7 +132,9 @@ export function Checkbox({
             onClick={() => setEditMode(true)}
             onBlur={(newText) => {
               setEditMode(false);
-              onUpdate && onUpdate(newText, check);
+              if (onUpdate) {
+                onUpdate(newText, check);
+              }
             }}
           />
         </Text>
